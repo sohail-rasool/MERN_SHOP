@@ -7,13 +7,13 @@ import SearchBox from './SearchBox';
 import { logout } from '../actions/userActions';
 
 const Header = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // const userLogin = useSelector((state) => state.userLogin)
-  // const { userInfo } = userLogin
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const logoutHandler = () => {
-    // dispatch(logout());
+    dispatch(logout());
   };
 
   return (
@@ -32,20 +32,25 @@ const Header = () => {
                   <i className='fas fa-shopping-cart'></i> Cart
                 </Nav.Link>
               </LinkContainer>
-              <NavDropdown title={'name'} id='username'>
-                <LinkContainer to='/profile'>
-                  <NavDropdown.Item>Profile</NavDropdown.Item>
+
+              {userInfo ? (
+                <NavDropdown title={userInfo.name} id='username'>
+                  <LinkContainer to='/profile'>
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to='/login'>
+                  <Nav.Link>
+                    <i className='fas fa-user'></i> Sign In
+                  </Nav.Link>
                 </LinkContainer>
-                <NavDropdown.Item onClick={logoutHandler}>
-                  Logout
-                </NavDropdown.Item>
-              </NavDropdown>
-              <LinkContainer to='/login'>
-                <Nav.Link>
-                  <i className='fas fa-user'></i> Sign In
-                </Nav.Link>
-              </LinkContainer>
-              <NavDropdown title='Admin' id='adminmenu'>
+              )}
+
+              {/* <NavDropdown title='Admin' id='adminmenu'>
                 <LinkContainer to='/admin/userlist'>
                   <NavDropdown.Item>Users</NavDropdown.Item>
                 </LinkContainer>
@@ -55,7 +60,7 @@ const Header = () => {
                 <LinkContainer to='/admin/orderlist'>
                   <NavDropdown.Item>Orders</NavDropdown.Item>
                 </LinkContainer>
-              </NavDropdown>
+              </NavDropdown> */}
             </Nav>
           </Navbar.Collapse>
         </Container>

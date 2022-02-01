@@ -18,7 +18,8 @@ const ProductListScreen = ({ history, match }) => {
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products, page, pages } = productList;
+  const { loading, error, productItems, page, pages } = productList;
+  const { products } = productItems;
 
   const productDelete = useSelector((state) => state.productDelete);
   const {
@@ -104,11 +105,11 @@ const ProductListScreen = ({ history, match }) => {
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => (
+              {products?.map((product) => (
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
-                  <td>${product.price}</td>
+                  <td>$ {product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td>

@@ -11,10 +11,11 @@ import Loader from '../components/Loader';
 import { listProducts } from '../actions/productActions';
 
 const HomeScreen = ({ match }) => {
+  const keyword = match.params.keyword;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(keyword));
+  }, [dispatch, keyword]);
 
   const productList = useSelector((state) => state.productList);
 

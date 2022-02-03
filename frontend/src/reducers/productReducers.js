@@ -25,14 +25,20 @@ import {
   PRODUCT_TOP_FAIL,
 } from '../constants/productConstants';
 
-export const productListReducer = (state = { productItems: [] }, action) => {
+export const productListReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
-      return { loading: true, productItems: [], error: '' };
+      return { loading: true, products: [], error: '' };
     case PRODUCT_LIST_SUCCESS:
-      return { loading: false, productItems: action.payload, error: '' };
+      return {
+        loading: false,
+        products: action.payload.products,
+        pages: action.payload.pages,
+        page: action.payload.page,
+        error: '',
+      };
     case PRODUCT_LIST_FAIL:
-      return { loading: false, productItems: [], error: action.payload };
+      return { loading: false, products: [], error: action.payload };
     default:
       return state;
   }
@@ -107,6 +113,19 @@ export const productReviewCreateReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case PRODUCT_CREATE_REVIEW_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const productTopRatedReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_TOP_REQUEST:
+      return { loading: true, products: [] };
+    case PRODUCT_TOP_SUCCESS:
+      return { loading: false, products: action.payload };
+    case PRODUCT_TOP_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

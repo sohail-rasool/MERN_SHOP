@@ -58,6 +58,7 @@ const ProductScreen = ({ history, match }) => {
 
   return (
     <>
+      <Meta title={product.name} />
       <Link className='btn btn-light my-3' to='/'>
         Go Back
       </Link>
